@@ -84,6 +84,7 @@ NEXTAUTH_SECRET=your_random_secret
 DATABASE_URL=your_neon_or_postgres_url
 AUTH_GOOGLE_ID=your_google_oauth_client_id
 AUTH_GOOGLE_SECRET=your_google_oauth_client_secret
+NEXT_PUBLIC_ALLOWED_EMAIL=the_emails_you_want_to_approve
 ```
 
 Make sure you’ve created your Google OAuth credentials at [console.cloud.google.com](https://console.cloud.google.com).
