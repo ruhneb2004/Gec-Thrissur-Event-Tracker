@@ -1,7 +1,5 @@
-export const allowedEmails = [
-  "tcr23cs025@gectcr.ac.in",
-  "benhurbenny007@gmail.com",
-];
+const envEmails = process.env.NEXT_PUBLIC_ALLOWED_EMAILS;
+export const allowedEmails = envEmails ? JSON.parse(envEmails) : [];
 export const allowedColors = [
   "red",
   "blue",
