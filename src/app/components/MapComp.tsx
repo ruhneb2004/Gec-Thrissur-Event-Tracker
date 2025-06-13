@@ -68,7 +68,9 @@ export default function MapComponent() {
           creator: session?.user?.email || "",
           color:
             allowedColors[
-              allowedEmails.findIndex((email) => email === session?.user?.email)
+              allowedEmails.findIndex(
+                (email: string) => email === session?.user?.email
+              )
             ] || "red",
         });
         if (session?.user?.email) {
