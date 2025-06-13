@@ -29,18 +29,15 @@ export const CertificateLinkModal = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitting certificate link:", certificateLink);
 
     try {
-      const res = await axios.post("/api/eventMarker/addCertificate", {
+      await axios.post("/api/eventMarker/addCertificate", {
         certificateLink: certificateLink,
         markerId: eventId,
       });
 
-      console.log("Updated successfully:", res.data);
       setCertificateLinkModalOpen(false);
-    } catch (err) {
-      console.log("Failed to update:", err);
+    } catch {
       setFormTitle("Error Adding Certificate Link");
       setFormDescription(
         "There was an error adding the certificate link. Please try again later."

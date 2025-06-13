@@ -28,19 +28,17 @@ export default function Page() {
         });
 
         loadMarkers(res.data.data);
-      } catch (error) {
+      } catch {
         setFormTitle("Error Fetching Events");
         setFormDescription(
           "There was an error fetching the event markers. Please try again later."
         );
         setFormErrorAlert(true);
-        console.error("Error fetching event markers:", error);
         setTimeout(() => {
           setFormErrorAlert(false);
         }, 5000);
       }
     };
-    console.log("markers", markers);
     const delay = setTimeout(() => {
       getEventMarkers();
     }, 500);
@@ -58,7 +56,6 @@ export default function Page() {
   ) => {
     setCertificateLinkModalOpen(true);
     setEventId(eventId);
-    console.log(eventCertificateLink);
     setCertificateLink(eventCertificateLink);
   };
 

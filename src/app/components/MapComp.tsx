@@ -76,7 +76,6 @@ export default function MapComponent() {
         }
       },
     });
-    console.log(markers);
     return null;
   }
 
@@ -87,14 +86,11 @@ export default function MapComponent() {
       try {
         const res = await fetch("/api/eventMarker/getCurrentMarker");
         const data = await res.json();
-        console.log("Fetched markers:", data);
         if (!res.ok) {
-          console.log("Error fetching markers:", data);
           return;
         }
         loadMarkers(data.data);
-      } catch (error) {
-        console.log("Failed to fetch marker:", error);
+      } catch {
         setFormTitle("Error Adding Certificate Link");
         setFormDescription(
           "There was an error adding the certificate link. Please try again later."
@@ -109,7 +105,6 @@ export default function MapComponent() {
     fetchMarkers();
 
     const intervalId = setInterval(() => {
-      console.log("Polling for markers...");
       fetchMarkers();
     }, 5000);
 
@@ -117,10 +112,7 @@ export default function MapComponent() {
   }, [session]);
 
   return (
-    <div
-      className="relative h-screen w-screen"
-      onClick={() => console.log(startDate)}
-    >
+    <div className="relative h-screen w-screen">
       <div className="absolute top-4 left-8 z-[1001] flex items-center gap-3 bg-white/70 backdrop-blur-sm px-4 py-3 rounded-full border border-gray-200 shadow-sm text-gray-800 font-medium">
         <Panda />
         <span className="text-sm sm:text-base font-medium hidden md:inline-block">

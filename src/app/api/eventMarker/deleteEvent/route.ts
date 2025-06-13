@@ -7,8 +7,6 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
 
-  console.log("Session:", session);
-  console.log(allowedEmails);
   if (!session || !allowedEmails.includes(session.user?.email || "")) {
     return new Response("Unauthorized", { status: 401 });
   }
@@ -32,7 +30,6 @@ export async function POST(req: Request) {
       },
     });
 
-    console.log("deleteMarker ", deleteMarker);
     return NextResponse.json(
       { message: "Successfully deleted the event", data: deleteMarker },
       {

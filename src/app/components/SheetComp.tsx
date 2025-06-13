@@ -16,7 +16,6 @@ import { format } from "date-fns";
 
 export const SheetComp = () => {
   const {
-    markers,
     selectedMarker,
     // removeMarker,
     setSelectedMarker,
@@ -52,9 +51,7 @@ export const SheetComp = () => {
       }
 
       //   removeMarker(selectedMarker.id);
-      console.log("Marker deleted successfully");
-    } catch (error) {
-      console.error("Error deleting marker:", error);
+    } catch {
       setFormErrorAlert(true);
       setFormTitle("Error Deleting Marker");
       setFormDescription("An error occurred while deleting the marker.");
@@ -98,7 +95,6 @@ export const SheetComp = () => {
       });
 
       if (!res.ok) {
-        console.log("Error saving marker:", res.statusText);
         setFormTitle(res.statusText);
         setFormDescription(
           "SignIn using from allowed emails(foss@gectcr.ac.in etc...)"
@@ -108,16 +104,8 @@ export const SheetComp = () => {
         return;
       }
 
-      const markerCreated = await res.json();
-      console.log("selectedMarker", selectedMarker);
-      console.log("markerCreated", markerCreated);
-
-      const markerExists = markers.some((m) => m.id === markerCreated.id);
-      console.log("markerExists", markerExists);
-
       setMarkerOpen(false);
-    } catch (error) {
-      console.error("Error saving marker:", error);
+    } catch {
       setFormErrorAlert(true);
       setTimeout(() => setFormErrorAlert(false), 3000);
     }

@@ -7,8 +7,6 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
 
-  console.log("Session:", session);
-  console.log(allowedEmails);
   if (!session || !allowedEmails.includes(session.user?.email || "")) {
     return new Response("Unauthorized", { status: 401 });
   }
@@ -27,8 +25,6 @@ export async function POST(req: Request) {
     deleted: false,
   };
 
-  console.log("Request body:", body);
-
   try {
     const markerExists = await prisma.event.findUnique({
       where: { id: body.id },
@@ -40,7 +36,6 @@ export async function POST(req: Request) {
         },
         data: markerData,
       });
-      console.log("marker updated ", updateMarker);
       return NextResponse.json(
         { message: "Successfully updated a event", data: updateMarker },
         {
@@ -51,7 +46,6 @@ export async function POST(req: Request) {
     const createMarker = await prisma.event.create({
       data: markerData,
     });
-    console.log("createMarker ", createMarker);
     return NextResponse.json(
       { message: "Successfully created a new event", data: createMarker },
       {

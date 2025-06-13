@@ -6,9 +6,6 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
-
-  console.log("Session:", session);
-  console.log(allowedEmails);
   if (!session || !allowedEmails.includes(session.user?.email || "")) {
     return new Response("Unauthorized", { status: 401 });
   }
@@ -21,9 +18,8 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
-  console.log("certificateLink", certificateLink);
+
   try {
-    console.log("markerId", markerId);
     const existing = await prisma.event.findUnique({
       where: { id: markerId },
     });
@@ -31,8 +27,6 @@ export async function POST(req: Request) {
     if (!existing) {
       return NextResponse.json({ message: "Event not found" }, { status: 404 });
     }
-
-    console.log("user ", session.user);
 
     if (
       !session.user ||
@@ -51,7 +45,6 @@ export async function POST(req: Request) {
       },
     });
 
-    console.log("added certificate ", updateMarker);
     return NextResponse.json(
       { message: "Successfully added certificate link!", data: updateMarker },
       {
@@ -59,7 +52,6 @@ export async function POST(req: Request) {
       }
     );
   } catch (error) {
-    console.error("Error adding certificate:", error);
     return NextResponse.json(
       { message: "Some error occurred", data: error },
       {
