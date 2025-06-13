@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🗺️ GEC Event Tracker
 
-## Getting Started
+A minimal, open-source event tracking platform built with Next.js + Prisma + Tailwind.  
+Perfect for colleges to manage campus-wide event visibility.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- Interactive event map with markers 🧭
+- Event descriptions, schedules & timelines
+- Certificate link support for participants 🎓
+- Role-based controls for event creators
+- Fully responsive & mobile-friendly
+
+---
+
+## 🛠 Tech Stack
+
+- [Next.js](https://nextjs.org) App Router
+- [Prisma](https://prisma.io) with NeonDB
+- [Tailwind CSS](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.dev) for components
+- [NextAuth](https://next-auth.js.org/) for auth
+- [React Leaflet](https://react-leaflet.js.org/) for map
+
+---
+
+## ⚙️ Getting Started
+
+```bash
+git clone https://github.com/your-username/gec-event-tracker
+cd gec-event-tracker
+npm install
+```
+
+- Configure your environment variables in `.env`
+- Run the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧪 Local Setup Notes
 
-## Learn More
+- Make sure you set up NeonDB or PostgreSQL and run:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx prisma migrate dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Auth requires Google client ID/secret.
+- You can customize the map logic in `components/MapClient.tsx`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧩 Make it Yours
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Fork it, rebrand it, change the logo, coordinates and deploy it for your college!  
+Contributions & PRs welcome.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🖼️ Screenshots
+
+<p float="left">
+  <img src="public/screenshot-home.png" width="45%" />
+  <img src="public/screenshot-map.png" width="45%" />
+</p>
+
+---
+
+## 🧰 Configuration
+
+Before running the project, ensure you set up the following environment variables in your `.env` file:
+
+```env
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_random_secret
+DATABASE_URL=your_neon_or_postgres_url
+AUTH_GOOGLE_ID=your_google_oauth_client_id
+AUTH_GOOGLE_SECRET=your_google_oauth_client_secret
+```
+
+Make sure you’ve created your Google OAuth credentials at [console.cloud.google.com](https://console.cloud.google.com).
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions from other colleges, FOSS communities, or students who want to build their own event tracker variant!
+
+- Fork this repo
+- Create a new branch: `git checkout -b my-feature`
+- Commit your changes: `git commit -am 'Add new feature'`
+- Push the branch: `git push origin my-feature`
+- Open a Pull Request 🚀
+
+---
+
+## 📦 Deploy to Vercel
+
+Easily deploy by clicking:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+---
+
+## 📄 License
+
+MIT — feel free to use, fork, and remix with credit.
+
+---
+
+> Built with ❤️ by ruhneb2004
