@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button";
 import { useDateStore } from "../store/dateStore";
 import { useAlertStore } from "../store/popUpCompsStore";
 import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const SheetComp = () => {
   const {
@@ -29,6 +31,48 @@ export const SheetComp = () => {
   const { data: session } = useSession();
   const userEmail = session?.user?.email || "";
   const { startDate, endDate } = useDateStore();
+  const [going, setGoing] = useState(
+    () =>
+      selectedMarker?.Attending?.some(
+        (attendee) => attendee.userId === (session?.user as { id: string })?.id
+      ) || false
+  );
+
+  useEffect(() => {
+    const userId = (session?.user as { id: string })?.id;
+    const attending =
+      selectedMarker?.Attending?.some(
+        (attendee) => attendee.userId === userId
+      ) || false;
+    setGoing(attending);
+  }, [selectedMarker, session]);
+
+  const setGoingStatus = async () => {
+    const status = !going;
+    const userId = (session?.user as { id: string })?.id;
+    console.log(selectedMarker);
+
+    console.log("userId", userId);
+    try {
+      const setStatus = await axios.post("/api/eventMarker/setGoingStatus", {
+        userId: userId,
+        status: status,
+        eventId: selectedMarker?.id || "",
+      });
+      console.log("setStatus", setStatus);
+      setGoing((status) => !status);
+    } catch (error) {
+      console.log(error);
+      setFormTitle("Error Setting Status");
+      setFormDescription(
+        "There was an error updating your attendance status. Please try again later."
+      );
+      setFormErrorAlert(true);
+      setTimeout(() => {
+        setFormErrorAlert(false);
+      }, 5000);
+    }
+  };
 
   const deleteMarker = async () => {
     if (!selectedMarker) return;
@@ -222,7 +266,7 @@ export const SheetComp = () => {
                 </div>
               ) : (
                 // Read-only version
-                <div className="text-sm text-gray-800 space-y-5">
+                <div className="text-sm text-gray-800 space-y-5 ">
                   <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-md shadow-sm">
                     <p className="font-semibold text-yellow-800">
                       ⏰ Event Starts:
@@ -258,6 +302,19 @@ export const SheetComp = () => {
                     >
                       {selectedMarker.eventLink}
                     </a>
+                  </div>
+                  <div className="flex justify-center">
+                    <button
+                      onClick={setGoingStatus}
+                      className={`relative flex items-center justify-center gap-2 px-5 py-2 w-fit text-sm font-medium rounded-full transition-all duration-300 border 
+      ${
+        going
+          ? "bg-green-600 text-white border-transparent shadow-md hover:bg-green-700"
+          : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
+      }`}
+                    >
+                      {going ? "✅ Attending" : "➕ I'm Going"}
+                    </button>
                   </div>
                 </div>
               )

@@ -10,6 +10,9 @@ export async function GET() {
         },
         deleted: false,
       },
+      include: {
+        Attending: true,
+      },
     });
     if (getValidMarkers.length === 0) {
       return NextResponse.json(

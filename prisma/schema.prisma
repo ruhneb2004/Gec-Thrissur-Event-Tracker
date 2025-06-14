@@ -51,6 +51,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Attending     Attending[]
+
  
   @@map("users")
 }
@@ -77,5 +79,19 @@ model Event {
   eventLink               String
   creator                 String
   createdAt               DateTime @default(now())
-  deleted                 Boolean?
+  deleted                 Boolean @default(false)
+  Attending               Attending[]
 }
+
+model Attending {
+  id        String   @id @default(cuid())
+  userId    String
+  eventId   String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, eventId], name: "userId_eventId")
+  }

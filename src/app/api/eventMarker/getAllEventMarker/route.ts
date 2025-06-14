@@ -13,6 +13,9 @@ export async function POST(req: Request) {
           mode: "insensitive",
         },
       },
+      include: {
+        Attending: true,
+      },
       orderBy: {
         time: "desc",
       },

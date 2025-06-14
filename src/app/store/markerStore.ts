@@ -12,6 +12,7 @@ export type MarkerType = {
   certificateLink?: string;
   eventLink: string;
   creator: string;
+  Attending: { id: string; userId: string; eventId: string }[];
 };
 
 type MarkerStore = {

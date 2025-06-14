@@ -72,8 +72,9 @@ export default function MapComponent() {
                 (email: string) => email === session?.user?.email
               )
             ] || "red",
+          Attending: [],
         });
-        if (session?.user?.email) {
+        if (allowedEmails.includes(session?.user?.email || "")) {
           setMarkerOpen(true);
         }
       },
@@ -130,28 +131,34 @@ export default function MapComponent() {
         </Link>
 
         {session ? (
-          <div className="flex items-center gap-1 sm:gap-4 bg-white/70 backdrop-blur-sm transition-all shadow-md px-3 py-2 rounded-full">
-            <Avatar className="w-8 h-8">
-              <AvatarImage
-                src={
-                  session.user?.image ||
-                  "https://xsgames.co/randomusers/avatar.php?g=pixel"
-                }
-              />
-              <AvatarFallback>
-                {session.user?.name
-                  ? session.user.name.charAt(0).toUpperCase()
-                  : session.user?.email?.charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            <span className="text-sm text-gray-800 font-medium truncate max-w-[120px] hidden sm:inline-block">
-              {session.user?.name || session.user?.email}
-            </span>
+          <div className="flex items-center gap-1 sm:gap-0 bg-white/70 backdrop-blur-sm transition-all shadow-md px-3 py-2 rounded-full ">
+            <Link
+              href={"/portfolio"}
+              className="flex items-center gap-2 hover:bg-gray-200 hover:inset-shadow-gray-100 hover:inset-shadow-sm active:bg-gray-300 active:inset-shadow-gray-400 transition-all rounded-full sm:pr-4 cursor-pointer"
+            >
+              <Avatar className="w-8 h-8">
+                <AvatarImage
+                  src={
+                    session.user?.image ||
+                    "https://xsgames.co/randomusers/avatar.php?g=pixel"
+                  }
+                />
+                <AvatarFallback>
+                  {session.user?.name
+                    ? session.user.name.charAt(0).toUpperCase()
+                    : session.user?.email?.charAt(0).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <span className="text-sm text-gray-800 font-medium truncate max-w-[120px] hidden sm:inline-block">
+                {session.user?.name || session.user?.email}
+              </span>
+            </Link>
+
             <Button
               variant="ghost"
               size="sm"
               onClick={() => signOut()}
-              className="rounded-full hover:bg-red-100 hover:text-red-800 transition"
+              className="rounded-full hover:bg-red-100 hover:text-red-800 transition cursor-pointer hover:inset-shadow-gray-100 hover:inset-shadow-sm active:inset-shadow-red-400"
             >
               Sign Out
             </Button>
